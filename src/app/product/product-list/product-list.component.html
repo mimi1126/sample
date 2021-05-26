@@ -1,0 +1,17 @@
+<div class="container py-5">
+  <div class="row">
+
+    <div class="col-sm" *ngFor="let product of products">
+      <a routerLink="detail/{{product.id}}">
+        <div class="card" >
+          <img src="./assets/img/placeholder.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-title">{{ product.name }}</p>
+            <p class="card-text">{{ product.description }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
