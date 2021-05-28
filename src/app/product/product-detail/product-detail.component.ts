@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { products } from 'src/app/mock-products';
+import { Observable } from 'rxjs';
+import { ProductService } from '../shared/product.service';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -10,11 +12,23 @@ import { products } from 'src/app/mock-products';
 export class ProductDetailComponent implements OnInit {
 
   product: any;
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.product = products.find(el => el.id == id);
+    const id = String(this.route.snapshot.paramMap.get('id'))
+    // this.product =
+    const productObservable = this.productService.getProductById(id)
+    productObservable.subscribe(
+      (data) => {
+        this.product = data
+      },
+      (err) => {
+        console.error('something wrong occurred: ' + err)
+      }
+    )
+
   }
 
 }
